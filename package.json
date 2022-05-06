@@ -5,12 +5,16 @@
   "license": "MIT",
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
-    "create-local": "graph create davekaj/uniswap --node http://127.0.0.1:8020",
     "build": "graph build",
-    "deploy-local": "graph deploy davekaj/uniswap --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
-    "deploy": "graph deploy ianlapham/uniswap  --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/ --debug",
-    "deploy-staging": "graph deploy $THE_GRAPH_GITHUB_USER/$THE_GRAPH_SUBGRAPH_NAME /Uniswap --ipfs https://api.staging.thegraph.com/ipfs/ --node https://api.staging.thegraph.com/deploy/",
-    "watch-local": "graph deploy graphprotocol/Uniswap2 --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
+    "create-dev": "graph create ttswap/v1 --node https://graph-node.dev.tt-eng.com/api",
+    "remove-dev": "graph remove ttswap/v1 --node https://graph-node.dev.tt-eng.com/api",
+    "deploy-dev": "graph deploy ttswap/v1 --debug --ipfs https://ipfs.dev.tt-eng.com --node https://graph-node.dev.tt-eng.com/api",
+    "create-prod": "graph create ttswap/v1 --node https://graph-node.prod.tt-eng.com/api",
+    "remove-prod": "graph remove ttswap/v1 --node https://graph-node.prod.tt-eng.com/api",
+    "deploy-prod": "graph deploy ttswap/v1 --debug --ipfs https://ipfs.prod.tt-eng.com --node https://graph-node.prod.tt-eng.com/api",
+    "create-local": "graph create ttswap/v1 --node http://localhost:8020",
+    "remove-local": "graph remove ttswap/v1 --node http://localhost:8020",
+    "deploy-local": "graph deploy ttswap/v1 --debug --ipfs http://localhost:5001 --node http://localhost:8020"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.16.0",

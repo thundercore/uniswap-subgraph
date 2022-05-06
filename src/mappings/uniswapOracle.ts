@@ -3,54 +3,58 @@ import { BigDecimal, BigInt } from '@graphprotocol/graph-ts/index'
 import { equalToZero, zeroBD } from '../helpers'
 
 export function uniswapUSDOracle(blockNum: BigInt): BigDecimal {
-  const SAI_EXCHANGE = '0x09cabec1ead1c0ba254b09efb3ee13841712be14'
-  const SAI_BLOCK_CONTRACT_CREATION = 6629140
+  const USDT_EXCHANGE = '0x3e9ada9f40cd4b5a803cf764ece1b4dae6486204'
+  const USDT_BLOCK_CONTRACT_CREATION = 12844092
 
-  const USDC_EXCHANGE = '0x97dec872013f6b5fb443861090ad931542878126'
-  const USDC_BLOCK_CONTRACT_CREATION = 7207017 // first block after a non-trivial amount of liquidity was added
+  const USDC_EXCHANGE = '0xd8d020934f008fbd10bd2b47263eb4e751acf1a2'
+  const USDC_BLOCK_CONTRACT_CREATION = 51180627
 
-  const TUSD_EXCHANGE = '0x4f30e682d0541eac91748bd38a648d759261b8f3'
-  const TUSD_BLOCK_CONTRACT_CREATION = 7285332
+  const BUSD_EXCHANGE = '0x0646ccb4983a65b1ad6b7c34d62fe2fcfbbd8b1b'
+  const BUSD_BLOCK_CONTRACT_CREATION = 63651963
 
-  const DAI_EXCHANGE = '0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667'
-  const DAI_BLOCK_CONTRACT_CREATION = 8939330
+  const HUSD_EXCHANGE = '0x20c198e0ade7695d70953dac32a2904151cba0ee'
+  const HUSD_BLOCK_CONTRACT_CREATION = 76191543
 
   let oneUSDInEth: BigDecimal
   const blockNumInt = blockNum.toI32()
 
-  if (blockNumInt > DAI_BLOCK_CONTRACT_CREATION) {
-    const daiExchange = Exchange.load(DAI_EXCHANGE)
-    const daiPrice = daiExchange.price
+  if (blockNumInt > HUSD_BLOCK_CONTRACT_CREATION) {
+    const husdExchange = Exchange.load(HUSD_EXCHANGE)
+    const husdPrice = husdExchange.price
+
+    const busdExchange = Exchange.load(BUSD_EXCHANGE)
+    const busdPrice = busdExchange.price
 
     const usdcExchange = Exchange.load(USDC_EXCHANGE)
     const usdcPrice = usdcExchange.price
 
-    const tusdExchange = Exchange.load(TUSD_EXCHANGE)
-    const tusdPrice = tusdExchange.price
+    const usdtExchange = Exchange.load(USDT_EXCHANGE)
+    const usdtPrice = usdtExchange.price
 
-    const averagePrice = daiPrice
+    const averagePrice = husdPrice
+      .plus(busdPrice)
       .plus(usdcPrice)
-      .plus(tusdPrice)
-      .div(BigDecimal.fromString('3'))
+      .plus(usdtPrice)
+      .div(BigDecimal.fromString('4'))
     if (!equalToZero(averagePrice)) {
       oneUSDInEth = BigDecimal.fromString('1').div(averagePrice)
     } else {
       oneUSDInEth = zeroBD()
     }
     return oneUSDInEth
-  } else if (blockNumInt > TUSD_BLOCK_CONTRACT_CREATION) {
-    const saiExchange = Exchange.load(SAI_EXCHANGE)
-    const saiPrice = saiExchange.price
+  } else if (blockNumInt > BUSD_BLOCK_CONTRACT_CREATION) {
+    const busdExchange = Exchange.load(BUSD_EXCHANGE)
+    const busdPrice = busdExchange.price
 
     const usdcExchange = Exchange.load(USDC_EXCHANGE)
     const usdcPrice = usdcExchange.price
 
-    const tusdExchange = Exchange.load(TUSD_EXCHANGE)
-    const tusdPrice = tusdExchange.price
+    const usdtExchange = Exchange.load(USDT_EXCHANGE)
+    const usdtPrice = usdtExchange.price
 
-    const averagePrice = saiPrice
+    const averagePrice = busdPrice
       .plus(usdcPrice)
-      .plus(tusdPrice)
+      .plus(usdtPrice)
       .div(BigDecimal.fromString('3'))
     if (!equalToZero(averagePrice)) {
       oneUSDInEth = BigDecimal.fromString('1').div(averagePrice)
@@ -59,25 +63,27 @@ export function uniswapUSDOracle(blockNum: BigInt): BigDecimal {
     }
     return oneUSDInEth
   } else if (blockNumInt > USDC_BLOCK_CONTRACT_CREATION) {
-    const saiExchange = Exchange.load(SAI_EXCHANGE)
-    const saiPrice = saiExchange.price
-
     const usdcExchange = Exchange.load(USDC_EXCHANGE)
     const usdcPrice = usdcExchange.price
 
-    const averagePrice = saiPrice.plus(usdcPrice).div(BigDecimal.fromString('2'))
+    const usdtExchange = Exchange.load(USDT_EXCHANGE)
+    const usdtPrice = usdtExchange.price
+
+    const averagePrice = usdcPrice
+      .plus(usdtPrice)
+      .div(BigDecimal.fromString('2'))
     if (!equalToZero(averagePrice)) {
       oneUSDInEth = BigDecimal.fromString('1').div(averagePrice)
     } else {
       oneUSDInEth = zeroBD()
     }
     return oneUSDInEth
-  } else if (blockNumInt >= SAI_BLOCK_CONTRACT_CREATION) {
-    const saiExchange = Exchange.load(SAI_EXCHANGE)
-    const saiPrice = saiExchange.price
+  } else if (blockNumInt >= USDT_BLOCK_CONTRACT_CREATION) {
+    const usdtExchange = Exchange.load(USDT_EXCHANGE)
+    const usdtPrice = usdtExchange.price
 
-    if (!equalToZero(saiPrice)) {
-      oneUSDInEth = BigDecimal.fromString('1').div(saiPrice)
+    if (!equalToZero(usdtPrice)) {
+      oneUSDInEth = BigDecimal.fromString('1').div(usdtPrice)
     } else {
       oneUSDInEth = zeroBD()
     }
