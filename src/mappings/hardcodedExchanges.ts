@@ -8,6 +8,13 @@ export class AsExchange {
 
 export const hardcodedExchanges: Array<AsExchange> = [
   {
+    symbol: 'TT-DAI',
+    name: 'TT-DAI',
+    tokenAddress: '0x2b31e3b88847f03c1335e99a0d1274a2c72059de',
+    tokenDecimals: 18,
+    exchangeAddress: '0x837b5a92f14992ce803e6743a0275c67722475e7'
+  },
+  {
     symbol: 'PMT',
     name: 'Planet Master Token',
     tokenAddress: '0xff99e917cf1e081a4e52836bbe8df610cbab9dd7',
