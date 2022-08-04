@@ -8,6 +8,34 @@ export class AsExchange {
 
 export const hardcodedExchanges: Array<AsExchange> = [
   {
+    symbol: 'XY',
+    name: 'XY Token',
+    tokenAddress: '0x333333331193762b9dd5828fA91aFA40d8432B7A',
+    tokenDecimals: 18,
+    exchangeAddress: '0x280c9Df92f9a352d8eFA81EE90b71cd511AFE769'
+  },
+  {
+    symbol: 'AVAX',
+    name: 'Avalanche',
+    tokenAddress: '0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8',
+    tokenDecimals: 18,
+    exchangeAddress: '0xca7956E8029fa9f3c3D01D556E5b34548f57f35d'
+  },
+  {
+    symbol: 'APE',
+    name: 'ApeCoin',
+    tokenAddress: '0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b',
+    tokenDecimals: 18,
+    exchangeAddress: '0x88602036EDc931fBB7c5C5Fe97b9785C91a7A4E9'
+  },
+  {
+    symbol: 'DAI',
+    name: 'Dai Stablecoin',
+    tokenAddress: '0x461d52769884ca6235B685EF2040F47d30C94EB5',
+    tokenDecimals: 18,
+    exchangeAddress: '0x8910fa9A07d69064BAB6E3413430A2Bf9d58D9bB'
+  },
+  {
     symbol: 'TT-DAI',
     name: 'TT-DAI',
     tokenAddress: '0x2b31e3b88847f03c1335e99a0d1274a2c72059de',
